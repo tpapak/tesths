@@ -1,7 +1,12 @@
 name:           tesths
 version:        0.2.2.1
 synopsis:       A lightweight testing framework for Haskell
-description:    Please see the README on Github at <https://github.com/tpapak/tesths#readme>
+description:
+    A minimal pure-functional test harness.  Build a list of @Test@ values
+    using 'testPassed' and 'testFailed', then report results with
+    'reportTests' (pure tests) or 'reportTestsIO' (IO tests).
+    Exits with failure if any test fails.
+    See the README on Github at <https://github.com/tpapak/tesths#readme>.
 category:       Testing
 homepage:       https://github.com/tpapak/tesths#readme
 bug-reports:    https://github.com/tpapak/tesths/issues
