@@ -1,3 +1,17 @@
+{-|
+Module      : TestHS
+Description : A lightweight testing framework for Haskell
+Copyright   : Thodoris Papakonstantinou, 2026
+License     : LGPL-3
+Maintainer  : dev@tpapak.com
+Stability   : experimental
+Portability : POSIX
+
+A minimal pure-functional test harness.  Build a list of 'Test' values
+using 'testPassed' and 'testFailed', then report results with
+'reportTests' (pure tests) or 'reportTestsIO' (IO tests).
+Exits with failure if any test fails.
+ -}
 module TestHS
     ( Test
     , runTest
@@ -19,12 +33,14 @@ data Test = Test
   , outcome :: Either (String, String) String
   } deriving (Show, Eq)
 
+-- | Create a passing test with a name and a result message.
 testPassed :: String -> String -> Test
 testPassed t s = Test 
   { name = t
   , outcome = Right s
   }
   
+-- | Create a failing test with a name and an @(expected, got)@ pair.
 testFailed :: String -> (String,String) -> Test
 testFailed t f = Test 
   { name = t
@@ -50,6 +66,7 @@ runTest t = do
       setSGR [Reset]
   return t
 
+-- | Run a list of pure tests, print results, and exit with failure if any fail.
 reportTests :: [Test] -> IO ()
 reportTests ts = do
   tests <- sequence $ map runTest ts
